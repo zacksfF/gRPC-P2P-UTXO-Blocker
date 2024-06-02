@@ -86,8 +86,9 @@ Environment requirement: Go +1.22
 Compile:
 
 ```
-git clone 
-cd 
+git clone https://github.com/zacksfF/gRPC-P2P-UTXO-Blocker.git
+cd gRPC-P2P-UTXO-Blocker
 code .
 ```
 
+## Enjoy
