@@ -51,7 +51,7 @@ go get -u google.golang.org/grpc
 5. **Build the project:** Navigate to the project directory and run:
 
 ```
-make build
+go run main.go
 ```
 ## Example Some Usage
 1. 
