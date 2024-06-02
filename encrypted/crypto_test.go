@@ -1,57 +1,48 @@
 package encrypted
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGeneratePrivateKey(t *testing.T) {
-	privKey := GeneratePrivateKey()
+	privateKey := GeneratePrivateKey()
+	assert.Equal(t, PrivateKeyLen, len(privateKey.Bytes()))
 
-	assert.Equal(t, len(privKey.Bytes()), PrivKeyLen)
-	pubKey := privKey.Public()
-	assert.Equal(t, len(pubKey.Bytes()), PubKeyLen)
+	publicKey := privateKey.Public()
+	assert.Equal(t, PublicKeyLen, len(publicKey.Bytes()))
 }
 
 func TestPrivateKeySign(t *testing.T) {
-	privkey := GeneratePrivateKey()
-	pubKey := privkey.Public()
-	msg := []byte("Zack Block")
+	privateKey := GeneratePrivateKey()
+	publicKey := privateKey.Public()
+	signature := privateKey.Sign([]byte("hello world"))
 
-	sign := privkey.Sign(msg)
-	assert.True(t, sign.Verify(pubKey, msg))
+	assert.True(t, signature.Verify(publicKey, []byte("hello world")))
+	assert.False(t, signature.Verify(publicKey, []byte("hello world!"))) // different message
 
-	//test with invalid msg
-	assert.False(t, sign.Verify(pubKey, []byte("zakck")))
-
-	//test with invalid pubkey
 	invalidPrivateKey := GeneratePrivateKey()
-	invalidPubkey := invalidPrivateKey.Public()
-	assert.False(t, sign.Verify(invalidPubkey, msg))
+	invalidPublicKey := invalidPrivateKey.Public()
+	assert.False(t, signature.Verify(invalidPublicKey, []byte("hello world"))) // different public key
 }
 
 func TestPublicKeyAddress(t *testing.T) {
-	privkey := GeneratePrivateKey()
-	pubKey := privkey.Public()
-	address := pubKey.Address()
-	assert.Equal(t, addressLen, len(address.Bytes()))
-	fmt.Println(address)
+	privateKey := GeneratePrivateKey()
+	publicKey := privateKey.Public()
+	address := publicKey.Address()
+
+	assert.Equal(t, AddressLen, len(address.Bytes()))
 }
 
 func TestNewPrivateKeyFromString(t *testing.T) {
 	var (
-		seed          = "ba547efd3869cd3f6c74bc7fab1178499da44ba1ba10e7b9063c386defe8921c"
-		privKey       = newPrivateKeyFromString(seed)
-		addressString = "b9b15db4d715ab58ac628d55fb7264571203ddb39d817ac29844d75781c6"
+		seed       = "c96e14d8abd284946d6f8bd3fabe5d4e4a22fd63013382b040b247ec1a471060"
+		privateKey = NewPrivateKeyFromString(seed)
+		addressStr = "5955d2b0bbad576748b1dc3d499b57b517e2c144"
 	)
 
-	// seed := make([]byte, 32)
-	// io.ReadFull(rand.Reader, seed)
-	// fmt.Println(hex.EncodeToString(seed))
-	assert.Equal(t, PrivKeyLen, len(privKey.Bytes()))
-	Address := privKey.Public().Address()
-	assert.Equal(t, addressString, Address.String())
-
+	assert.Equal(t, PrivateKeyLen, len(privateKey.Bytes()))
+	address := privateKey.Public().Address()
+	assert.Equal(t, addressStr, address.String())
 }

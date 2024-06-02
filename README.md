@@ -53,7 +53,7 @@ go get -u google.golang.org/grpc
 ```
 make build
 ```
-## Usage
+## Example Some Usage
 1. 
 ```
 TestPrivateKeySign
@@ -64,6 +64,21 @@ ok      github.com/zacksfF/gRPC-P2P-UTXO-Blocker/encrypted      1.085s
 
 output : Addrees Len = 2c22b31027a2683deeec8f5d3c1bdd8a0a31b952f774684db6f23b8feaa1
 ```
+2. 
+```
+TestVerifyBlock:
+Running tool: /usr/local/bin/go test -timeout 30s -run ^TestVerifyBlock$ github.com/zacksfF/gRPC-P2P-UTXO-Blocker/types
+
+=== RUN   TestVerifyBlock
+--- PASS: TestVerifyBlock (0.00s)
+PASS
+ok      github.com/zacksfF/gRPC-P2P-UTXO-Blocker/types  1.156s
+
+```
+
+## Demo 
+
+
 
 ## Building from source
 Environment requirement: Go +1.22
