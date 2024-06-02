@@ -77,7 +77,8 @@ ok      github.com/zacksfF/gRPC-P2P-UTXO-Blocker/types  1.156s
 ```
 
 ## Demo 
-![Screen Recording 2024-06-02 at 17 31 49 (1)](https://github.com/zacksfF/gRPC-P2P-UTXO-Blocker/assets/129240583/39e208fa-63b8-4286-bfde-010190692b2a)
+
+  ![Screen Recording 2024-06-02 at 17 31 49 (1)](https://github.com/zacksfF/gRPC-P2P-UTXO-Blocker/assets/129240583/39e208fa-63b8-4286-bfde-010190692b2a)
 
 ## Building from source
 Environment requirement: Go +1.22
